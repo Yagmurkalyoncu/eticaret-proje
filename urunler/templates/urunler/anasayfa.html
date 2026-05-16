@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticaret Mağazası</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        header { background: #2c3e50; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 24px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .kategoriler { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .kategori-btn { padding: 8px 16px; background: #2c3e50; color: white; border: none; border-radius: 20px; cursor: pointer; text-decoration: none; font-size: 14px; }
+        .urunler-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .urun-kart { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .urun-kart h3 { font-size: 18px; margin-bottom: 8px; color: #2c3e50; }
+        .urun-kart p { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .fiyat { font-size: 22px; font-weight: bold; color: #e74c3c; margin-bottom: 10px; }
+        .stok { font-size: 13px; color: #27ae60; margin-bottom: 15px; }
+        .btn { display: inline-block; padding: 10px 20px; background: #e74c3c; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; }
+        .btn:hover { background: #c0392b; }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛒 E-Ticaret Mağazası</h1>
+        <a href="/admin" style="color:white; text-decoration:none;">Admin Panel</a>
+    </header>
+    <div class="container">
+        <div class="kategoriler">
+            <a href="/" class="kategori-btn">Tümü</a>
+            {% for kategori in kategoriler %}
+            <a href="/?kategori={{ kategori.id }}" class="kategori-btn">{{ kategori.ad }}</a>
+            {% endfor %}
+        </div>
+        <div class="urunler-grid">
+            {% for urun in urunler %}
+            <div class="urun-kart">
+                <h3>{{ urun.ad }}</h3>
+                <p>{{ urun.aciklama|truncatechars:80 }}</p>
+                <div class="fiyat">₺{{ urun.fiyat }}</div>
+                <div class="stok">Stok: {{ urun.stok }} adet</div>
+                <a href="/urun/{{ urun.pk }}/" class="btn">Satın Al</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer><p>© 2026 E-Ticaret Mağazası</p></footer>
+</body>
+</html>
